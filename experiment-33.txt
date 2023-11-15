@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int main() {
+    char input[100];
+    
+    // Get input string from user
+    printf("Enter a string: ");
+    scanf("%s", input);
+    
+    // Initialize state and length of the input string
+    int state = 0;
+    int length = 0;
+
+    // Traverse the input string
+    while (input[length] != '\0') {
+        // Transition logic based on current state and input character
+        switch (state) {
+            case 0:
+                if (input[length] == 'o') {
+                    state = 1;
+                }
+                break;
+                
+            case 1:
+                if (input[length] == '1') {
+                    state = 2;
+                } else if (input[length] == 'o') {
+                    // Non-deterministic transition
+                    state = 1;
+                }
+                break;
+                
+            case 2:
+                // Accept state, no transitions allowed
+                break;
+        }
+        
+        length++;
+    }
+
+    // Check if the string is accepted
+    if (state == 2) {
+        printf("Accepted\n");
+    } else {
+        printf("Rejected\n");
+    }
+
+    return 0;
+}

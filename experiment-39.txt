@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    
+    int transitions[][2] = {{1, -1}, {1, 2}, {1, -1}};
+    int currentState = 0;
+    char input[50];
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    for (int i = 0; input[i] != '\0'; ++i) {
+        
+        int colIndex = (input[i] == 'a') ? 0 : 1;
+        
+        
+        if (colIndex == -1) {
+            printf("Invalid input character '%c'. Exiting.\n", input[i]);
+            return 1;
+        }
+        
+      
+        currentState = transitions[currentState][colIndex];
+    
+        if (currentState == -1) {
+            printf("Invalid transition for input '%c'. Exiting.\n", input[i]);
+            return 1;
+        }
+    }
+    if (currentState == 2) {
+        printf("String accepted!\n");
+    } else {
+        printf("String rejected!\n");
+    }
+    
+    return 0;
+}

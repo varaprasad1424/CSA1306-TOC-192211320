@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+#define MAX_STATES 10
+#define MAX_ALPHABET 5
+
+int n_states, n_symbols;
+int transition[MAX_STATES][MAX_ALPHABET];
+
+void print_epsilon_closure(int state, int epsilon_closure[]) {
+    printf("ε-closure(%d): ", state);
+    for (int i = 0; epsilon_closure[i] != -1; ++i) {
+        printf("%d ", epsilon_closure[i]);
+    }
+    printf("\n");
+}
+
+void epsilon_closure(int state, int epsilon_closure[]) {
+    int visited[MAX_STATES] = {0};
+    int queue[MAX_STATES] = {0};
+    int front = -1, rear = -1;
+
+    epsilon_closure[++rear] = state;
+    visited[state] = 1;
+
+    while (front != rear) {
+        state = queue[++front];
+
+        for (int symbol = 0; symbol < n_symbols; ++symbol) {
+            int next_state = transition[state][symbol];
+
+            if (next_state != -1 && !visited[next_state]) {
+                epsilon_closure[++rear] = next_state;
+                visited[next_state] = 1;
+            }
+        }
+    }
+
+    epsilon_closure[++rear] = -1;
+}
+
+int main() {
+    printf("Enter the number of states: ");
+    scanf("%d", &n_states);
+
+    printf("Enter the number of symbols in the alphabet: ");
+    scanf("%d", &n_symbols);
+
+    printf("Enter the transition table (-1 for ε-move):\n");
+    for (int i = 0; i < n_states; ++i) {
+        for (int j = 0; j < n_symbols; ++j) {
+            printf("δ(%d, %d): ", i, j);
+            scanf("%d", &transition[i][j]);
+        }
+    }
+
+    for (int i = 0; i < n_states; ++i) {
+        int epsilon_closure_set[MAX_STATES] = {-1};
+        epsilon_closure(i, epsilon_closure_set);
+        print_epsilon_closure(i, epsilon_closure_set);
+    }
+
+    return 0;
+}

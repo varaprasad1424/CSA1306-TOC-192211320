@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    char input[100];
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    // Start with S
+    if (input[0] == '1') {
+        int i = 1;
+
+        // Check A
+        while (input[i] == '0' || input[i] == '1') {
+            i++;
+        }
+
+        // Check for '101'
+        if (input[i] == '1') {
+            i++;
+
+            // Check A again
+            while (input[i] == '0' || input[i] == '1') {
+                i++;
+            }
+
+            // Check if the string is fully processed
+            if (input[i] == '\0') {
+                printf("The string belongs to the language.\n");
+                return 0;
+            }
+        }
+    }
+
+    printf("The string does not belong to the language.\n");
+    return 0;
+}

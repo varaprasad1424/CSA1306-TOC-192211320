@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+// Maximum number of states
+#define MAX_STATES 10
+
+int main() {
+    int n; // Number of states
+    int m; // Number of transitions
+
+    // Input the number of states and transitions
+    printf("Enter the number of states: ");
+    scanf("%d", &n);
+    printf("Enter the number of transitions: ");
+    scanf("%d", &m);
+
+    // Transition table
+    int transitions[MAX_STATES][3]; // Assuming source, destination, and symbol
+
+    // Input the transitions
+    printf("Enter the transitions (source, destination, symbol):\n");
+    for (int i = 0; i < m; ++i) {
+        scanf("%d %d %d", &transitions[i][0], &transitions[i][1], &transitions[i][2]);
+    }
+
+    // Epsilon closure calculation
+    printf("\nEpsilon Closures:\n");
+    for (int i = 0; i < n; ++i) {
+        printf("ε-Closure(%d): %d", i, i);
+
+        // Iterate over transitions to find epsilon closure
+        for (int j = 0; j < m; ++j) {
+            if (transitions[j][0] == i && transitions[j][2] == -1) {
+                printf(" %d", transitions[j][1]);
+            }
+        }
+
+        printf("\n");
+    }
+
+    return 0;
+}

@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+
+    if (str[0] == '0') {
+        int i = 1;
+
+  
+        while (str[i] == '0' || str[i] == '1') {
+            i++;
+        }
+
+      
+        if (str[i] == '1') {
+            printf("The string belongs to the CFG.\n");
+        } else {
+            printf("The string does not belong to the CFG.\n");
+        }
+    } else {
+        printf("The string does not belong to the CFG.\n");
+    }
+
+    return 0;
+}

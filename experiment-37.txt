@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    int i = 0;
+
+    // Check for S
+    while (str[i] == '0') {
+        i++;
+    }
+
+    // Check for A
+    while (str[i] == '1') {
+        i++;
+    }
+
+    // Check for ε (epsilon)
+    if (str[i] == '\0') {
+        printf("The string belongs to the language.\n");
+    } else {
+        printf("The string does not belong to the language.\n");
+    }
+
+    return 0;
+}

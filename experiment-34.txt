@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main() {
+    // Define the NFA transitions
+    int transitions[3][2] = {{0, 1}, {-1, 2}, {-1, -1}};
+
+    // Initial state
+    int currentState = 0;
+
+    // Input string
+    char input[100];
+    
+    // Read input string from the user
+    printf("Enter a string: ");
+    scanf("%s", input);
+
+    // Process each character in the input string
+    for (int i = 0; input[i] != '\0'; ++i) {
+        char currentChar = input[i];
+
+        // Map characters to indices (0 for 'a', 1 for 'b')
+        int charIndex = (currentChar == 'a') ? 0 : ((currentChar == 'b') ? 1 : -1);
+
+        // Check if the transition is valid
+        if (charIndex != -1 && transitions[currentState][charIndex] != -1) {
+            // Update the current state
+            currentState = transitions[currentState][charIndex];
+        } else {
+            // Invalid transition, reject the string
+            printf("String rejected!\n");
+            return 0;
+        }
+    }
+
+    // Check if the final state is accepting
+    if (currentState == 2) {
+        printf("String accepted!\n");
+    } else {
+        printf("String rejected!\n");
+    }
+
+    return 0;
+}
